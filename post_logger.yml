@@ -1,0 +1,25 @@
+version: 1
+disable_existing_loggers: True
+formatters:
+  basic:
+    format: '%(asctime)s   %(message)s'
+    datefmt: '%Y/%m/%d %H:%M'
+    level: INFO
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: basic
+  file_info:
+    class: logging.FileHandler
+    level: INFO
+    formatter: basic
+    mode: w
+root:
+  level: INFO
+  handlers:
+    - console
+    - file_info
+  propagate: True
+
+
