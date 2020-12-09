@@ -8,10 +8,12 @@ class PostTrainingModel(nn.Module):
     def __init__(self, args, device):
         super().__init__()
 
-        self.bert = AutoModel.from_pretrained(args.bert_model).to(device)
-        self.classifer = nn.Linear(args.hidden_size, 2)
-        self.decoder = nn.Linear(args.hidden_size, 30000, bias=False)
-        self.bias = nn.Parameter(torch.zeros(30000))
+        config = AutoConfig.from_pretrained(args.bert_model,
+                                                finetuning_task='Post-Training')
+        self.bert = AutoModel.from_pretrained(args.bert_model, config=config).to(device)
+        self.classifer = nn.Linear(config.hidden_size, 2)
+        self.decoder = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
+        self.bias = nn.Parameter(torch.zeros(config.vocab_size))
 
         # Need a link between the two variables so that the bias is correctly resized with `resize_token_embeddings`
         self.decoder.bias = self.bias
