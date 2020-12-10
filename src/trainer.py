@@ -10,7 +10,6 @@ from transformers import AdamW, get_linear_schedule_with_warmup
 from transformers import AutoConfig, BertForSequenceClassification
 from DANN_model import DomainAdaptationModel
 from data_loader import build_loader
-from scipy.stats import truncnorm
 
 from utils import binary_accuracy, format_time
 

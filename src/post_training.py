@@ -8,7 +8,6 @@ import yaml
 from datetime import datetime
 from tqdm import tqdm, trange
 from utils import set_seeds, clean
-from tokenization_kobert import KoBertTokenizer
 from PostTrainingModel import PostTrainingModel
 
 import torch

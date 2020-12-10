@@ -1,7 +1,6 @@
 import argparse
 
 from trainer import Trainer
-from Test import Tester
 from utils import init_logger, load_tokenizer, set_seeds
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
@@ -13,25 +12,21 @@ def main(args):
     if args.do_train:
         trainer = Trainer(args, tokenizer)
         trainer.train()
-    elif args.do_test:
-        tester = Tester(args, tokenizer)
-        tester.test()
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--task", default="nsmc", type=str, help="The name of the task to train")
-    parser.add_argument("--model_dir", default="./checkpoints/2020-09-09T09:58/best_model.pt", type=str, help="Path to save, load model")
+    parser.add_argument("--model_dir", default="./checkpoints/[path]/best_model.pt", type=str, help="Path to save, load model")
     parser.add_argument("--source_data_dir", default="../data/movie", type=str, help="The source data dir")
     parser.add_argument("--target_data_dir", default="../data/sports", type=str, help="The target data dir")
     parser.add_argument("--test_data_dir", default="../data/finetuning/sports", type=str, help="The test data dir(sports or tv")
     parser.add_argument("--output_file", default="sample_pred_out.txt", type=str, help="The test data dir(sports or tv")
-    parser.add_argument("--num_labels", default=2, type=int, help="The input data dir")
-    parser.add_argument("--dropout", default=0.1, type=float, help="The input data dir")
-    parser.add_argument("--hidden_size", default=768, type=int, help="The input data dir")
+    parser.add_argument("--num_labels", default=2, type=int, help="numbers of labels")
+    parser.add_argument("--dropout", default=0.1, type=float, help="dropot rate")
+    parser.add_argument("--hidden_size", default=768, type=int, help="Model hidden size")
 
-    parser.add_argument("--model_name_or_path", default="./checkpoints/post_2020-09-10T13:20/", type=str)
+    parser.add_argument("--model_name_or_path", default="./checkpoints/[path]", type=str)
 
     parser.add_argument('--seed', type=int, default=42, help="random seed for initialization")
     parser.add_argument("--train_batch_size", default=8, type=int, help="Batch size for training.")
